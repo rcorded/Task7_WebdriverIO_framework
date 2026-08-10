@@ -1,0 +1,16 @@
+[
+  { 
+    "id": "TD-01", 
+    "scenario": "Switch to US Dollar", 
+    "targetCurrency": "USD", 
+    "expectedSymbol": "$", 
+    "regexPattern": "^\\d+(\\.\\d+)?$" 
+  },
+  { 
+    "id": "TD-02", 
+    "scenario": "Switch to Euro", 
+    "targetCurrency": "EUR", 
+    "expectedSymbol": "€", 
+    "regexPattern": "^\\d+(\\.\\d+)?$" 
+  }
+]

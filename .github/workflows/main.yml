@@ -1,0 +1,48 @@
+name: WebdriverIO Docker Tests with Allure Report
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  wdio-run:
+    runs-on: ubuntu-latest
+    
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Build Docker Image
+        run: docker build -t wdio-tests .
+
+      - name: Run WebdriverIO Tests in Docker
+        run: |
+          docker run --rm -e BASE_URL=${{ secrets.BASE_URL }} -v ${{ github.workspace }}/allure-results:/app/allure-results wdio-tests npm run test:chrome:headless
+        env:
+          BASE_URL: ${{ secrets.BASE_URL }}
+
+      - name: Setup Node.js (for report generation)
+        uses: actions/setup-node@v4
+        if: always() 
+        with:
+          node-version: '24'
+
+      - name: Install dependencies
+        if: always()
+        run: npm install
+
+      - name: Generate Allure Report
+        if: always()
+        run: npm run report:generate
+
+      - name: Deploy Report to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        if: always() 
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./allure-report

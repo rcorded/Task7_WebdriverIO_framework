@@ -1,0 +1,7 @@
+[
+  { "id": "TD-01", "testScenario": "Letters", "input": "abcXYZ"},
+  { "id": "TD-02", "testScenario": "Special characters", "input": "!@#$%^&*"},
+  { "id": "TD-03", "testScenario": "Number too short", "input": "123"},
+  { "id": "TD-04", "testScenario": "Number too long", "input": "12345678901234567890"},
+  { "id": "TD-05", "testScenario": "Empty field", "input": ""}
+]
