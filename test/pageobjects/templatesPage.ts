@@ -1,6 +1,6 @@
 import Page from './page.js';
 
-class TemplatesPage extends Page{
+class TemplatesPage extends Page {
   readonly PAGE_URL = '/templates';
 
   get filterButtons() {
@@ -15,8 +15,7 @@ class TemplatesPage extends Page{
   }
   async applyFilter(filterName: string) {
     let attempts = 0;
-    let currentUrl = await browser.getUrl();
-    const initialUrl = currentUrl;
+    const initialUrl = await browser.getUrl();
     while (attempts < 3) {
       const buttons = await this.filterButtons;
       let targetButton: WebdriverIO.Element | undefined;
@@ -30,20 +29,25 @@ class TemplatesPage extends Page{
       if (!targetButton) {
         throw new Error(`Filter button containing text "${filterName}" was not found.`);
       }
+      await targetButton.scrollIntoView({ block: 'center' });
+      await targetButton.waitForClickable({ timeout: 5000 });
       await targetButton.click();
-      await browser.pause(1000);
-      currentUrl = await browser.getUrl();
-      if (currentUrl !== initialUrl) {
+      try {
+        await browser.waitUntil(async () => {
+          const currentUrl = await browser.getUrl();
+          return currentUrl !== initialUrl;
+        }, { timeout: 2000 });
         console.log(`The "${filterName}" filter has been successfully applied.`);
         return this;
+      } catch (error) {
+        console.log(`Dead click on "${filterName}". Trying again... (Attempt ${attempts + 1})`);
+        attempts++;
       }
-      console.log(`Dead click on "${filterName}". Trying again... (Attempt ${attempts + 1})`);
-      attempts++;
     }
     throw new Error(`The "${filterName}" filter could not be applied (the URL did not change) after 3 attempts.`);
   }
-  async getDynamicFilters(): Promise<string[]> {    
-    const texts = await this.filterButtons.map(button => button.getText());    
+  async getDynamicFilters(): Promise<string[]> {
+    const texts = await this.filterButtons.map(button => button.getText());
     return texts.map(text => text.trim()).slice(0, texts.length - 1);
   }
   async getCardBadgeText(cardElement: WebdriverIO.Element): Promise<string> {
