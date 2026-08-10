@@ -22,7 +22,7 @@ jobs:
 
       - name: Run WebdriverIO Tests in Docker
         run: |
-          docker run --rm -v ${{ github.workspace }}/allure-results:/app/allure-results wdio-tests npm run test:chrome:headless
+          docker run --rm -e BASE_URL=${{ secrets.BASE_URL }} -v ${{ github.workspace }}/allure-results:/app/allure-results wdio-tests npm run test:chrome:headless
         env:
           BASE_URL: ${{ secrets.BASE_URL }}
 
