@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"","","TC-12: Verify dynamic industry category filters isolate matching templates","Templates Catalog - Dynamic Filter Validation","2026-08-10","unknown","","","","",""
+"","","TC-4: TD-01 - Switch to US Dollar","Dynamic Currency Conversion Validation Across All Tables","2026-08-10","unknown","","","","",""
+"","2977","""before all"" hook for Frontend Search Validation on the Solutions page","","2026-08-10","broken","2026-08-10","","","",""
