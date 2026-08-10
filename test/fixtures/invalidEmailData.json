@@ -1,0 +1,9 @@
+[
+  { "id": "TD-01", "testScenario": "Missing @ symbol", "input": "user.company.com" },
+  { "id": "TD-02", "testScenario": "Missing domain name", "input": "user@" },
+  { "id": "TD-03", "testScenario": "Missing username", "input": "@company.com" },
+  { "id": "TD-04", "testScenario": "Empty field", "input": "" },
+  { "id": "TD-05", "testScenario": "Missing Top-Level Domain", "input": "user@company" },
+  { "id": "TD-06", "testScenario": "Multiple @ symbols", "input": "user@@company.com" },
+  { "id": "TD-07", "testScenario": "Double dots in domain", "input": "user@company..com" }
+]

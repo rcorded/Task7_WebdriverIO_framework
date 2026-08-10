@@ -1,0 +1,10 @@
+node_modules/
+allure-results/
+allure-report/
+.git/
+logs
+.github
+README.md
+*.log
+.vscode/
+.idea/
